@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="nav_items">
+        <item>Wallpapers</item>
+        <item>Quotes</item>
+    </string-array>
+
+    <string-array name="wallpapers_sections">
+        <item>Recent</item>
+        <item>Popular</item>
+        <item>Favorite</item>
+        <item>Category</item>
+    </string-array>
+
+    <string-array name="category_sections">
+        <item>Manchester United</item>
+        <item>Real Madrid</item>
+        <item>Juventus</item>
+        <item>Sporting Lisbon</item>
+        <item>Portugal</item>
+    </string-array>
+
+    <string-array name="wallpapers_remote_sections">
+        <item>Recent</item>
+        <item>Popular</item>
+    </string-array>
+</resources>

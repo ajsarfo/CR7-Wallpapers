@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "555163818822",
+    "project_id": "cristiano-ronaldo-7e539",
+    "storage_bucket": "cristiano-ronaldo-7e539.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555163818822:android:e9aaed5679087b44536347",
+        "android_client_info": {
+          "package_name": "com.sarftec.cristianoronaldo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "555163818822-4egs198glvl8jiqtahg3psj9ue556qmv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw5nVxAVldyx3LmtfYPeFP9PYWm7oo-j0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "555163818822-4egs198glvl8jiqtahg3psj9ue556qmv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

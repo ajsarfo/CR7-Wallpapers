@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/detail_icon_pad.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_back.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_back_arrow.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_check.xml" value="0.2310185185185185" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_close.xml" value="0.2310185185185185" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_download.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_eye.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_favorite.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_like.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_menu.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_quote.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_rate_app.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_round_wallpaper.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_set_wallpaper.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_share.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_unfavorite.xml" value="0.23055555555555557" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/ic_upload.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/drawable/wallpaper_item_bottom.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/activity_approve.xml" value="0.22" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/activity_detail.xml" value="0.25" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/activity_upload.xml" value="0.25" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/dialog_upload.xml" value="0.15" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/fragment_favorite.xml" value="0.15579710144927536" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/fragment_quote.xml" value="0.2125" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/fragment_wallpapers.xml" value="0.20153985507246377" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/layout_approve_item.xml" value="0.1" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/layout_approve_uploads.xml" value="0.33" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/layout_detail_upload_dialog.xml" value="0.20175438596491227" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/layout_loading_dialog.xml" value="0.192481884057971" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/layout_upload_dialog.xml" value="0.22" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/layout_upload_item.xml" value="0.20925925925925926" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/layout_wallpaper_category.xml" value="0.20923913043478262" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/layout_wallpaper_detail.xml" value="0.19655797101449277" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/layout_wallpaper_item.xml" value="0.33" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/layout_wallpaper_set_dialog.xml" value="0.5" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/layout/layout_wallpapers_base.xml" value="0.15579710144927536" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/menu/navigation_approve_menu.xml" value="1.2571428571428571" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/menu/navigation_bottom.xml" value="0.23958333333333334" />
+        <entry key="..\:/Users/Sarfo/AndroidStudioProjects/CristianoRonaldo/app/src/main/res/menu/navigation_drawer.xml" value="0.23958333333333334" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
