@@ -13,4 +13,6 @@ interface ImageRepository {
      */
     suspend fun getImage(imageName: String): Resource<Bitmap>
     suspend fun deleteImage(imageName: String) : Resource<Unit>
+
+
 }

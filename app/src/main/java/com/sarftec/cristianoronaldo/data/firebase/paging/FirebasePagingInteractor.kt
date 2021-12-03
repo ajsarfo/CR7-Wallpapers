@@ -6,7 +6,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.sarftec.cristianoronaldo.data.DATA_PAGE_SIZE
-import com.sarftec.cristianoronaldo.data.firebase.repository.walllpaper.FirebaseApproveWallpaperRepository
 import com.sarftec.cristianoronaldo.data.firebase.repository.walllpaper.FirebaseBaseWallpaperRepository
 import com.sarftec.cristianoronaldo.data.firebase.repository.walllpaper.FirebaseCategoryWallpaperRepository
 import com.sarftec.cristianoronaldo.data.room.CR7RoomDatabase
@@ -59,11 +58,5 @@ class FirebasePagingInteractor @Inject constructor(
                 roomFavoriteMapper.toCR7Wallpaper(it)
             }
        }
-    }
-
-    fun getApproveWallpaperFlow() : Flow<PagingData<CR7Wallpaper>> {
-        return Pager(PagingConfig(DATA_PAGE_SIZE.toInt(), enablePlaceholders = false)) {
-          FirebaseWallpaperPagingSource(FirebaseApproveWallpaperRepository())
-        }.flow
     }
 }

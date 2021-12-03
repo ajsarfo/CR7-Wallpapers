@@ -25,10 +25,6 @@ interface InterfaceInjection {
 
     @Singleton
     @Binds
-    fun approveRepository(repository: ApproveRepositoryImpl) : ApproveRepository
-
-    @Singleton
-    @Binds
     fun imageRepository(repository: ImageRepositoryImpl) : ImageRepository
 
     @Singleton

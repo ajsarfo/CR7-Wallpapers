@@ -49,22 +49,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".view.activity.UploadActivity"
-            android:exported="true">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".view.activity.ApproveActivity"
-            android:exported="true">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.sarftec.cristianoronaldo.provider"

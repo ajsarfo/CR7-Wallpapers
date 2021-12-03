@@ -9,6 +9,8 @@ import com.sarftec.cristianoronaldo.data.firebase.repository.FirebaseImageReposi
 import com.sarftec.cristianoronaldo.domain.model.ImageInfo
 import com.sarftec.cristianoronaldo.domain.repository.ImageRepository
 import com.sarftec.cristianoronaldo.utils.Resource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 
@@ -20,29 +22,31 @@ class ImageRepositoryImpl @Inject constructor(
 ) : ImageRepository {
 
     override suspend fun getImage(imageName: String): Resource<Bitmap> {
-        inMemoryImageCache.getImage(imageName).let {
-            if(it.isSuccess()) return it
-        }
-
-        diskImageCache.getImage(imageName).let {
-            if(it.isSuccess()) {
-                inMemoryImageCache.insertImage(imageName, it.data!!)
-                return it
+        return withContext(Dispatchers.IO) {
+            inMemoryImageCache.getImage(imageName).let {
+                if(it.isSuccess()) return@withContext it
             }
-        }
 
-        firebaseImageRepository.getImageUri(imageName).let {
-            if(it.isSuccess()) {
-                val result = imageDownloader.downloadImage(it.data!!)
-                if(result.isSuccess()) {
-                    diskImageCache.insertImage(imageName, result.data!!)
-                    inMemoryImageCache.insertImage(imageName, result.data)
+            diskImageCache.getImage(imageName).let {
+                if(it.isSuccess()) {
+                    inMemoryImageCache.insertImage(imageName, it.data!!)
+                    return@withContext it
                 }
-                return result
             }
-            if(it.isError()) return Resource.error("${it.message}")
+
+            firebaseImageRepository.getImageUri(imageName).let {
+                if(it.isSuccess()) {
+                    val result = imageDownloader.downloadImage(it.data!!)
+                    if(result.isSuccess()) {
+                        diskImageCache.insertImage(imageName, result.data!!)
+                        inMemoryImageCache.insertImage(imageName, result.data)
+                    }
+                    return@withContext result
+                }
+                if(it.isError()) return@withContext Resource.error("${it.message}")
+            }
+            return@withContext Resource.error("Failed => all image retrieval methods failed!")
         }
-        return Resource.error("Failed => all image retrieval methods failed!")
     }
 
     override suspend fun uploadWallpaper(file: File, imageInfo: ImageInfo): Resource<Unit> {

@@ -1,10 +1,14 @@
 package com.sarftec.cristianoronaldo.view.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import androidx.activity.viewModels
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -23,6 +27,7 @@ import com.sarftec.cristianoronaldo.view.parcel.WallpaperToDetail
 import com.sarftec.cristianoronaldo.view.utils.moreApps
 import com.sarftec.cristianoronaldo.view.utils.rateApp
 import com.sarftec.cristianoronaldo.view.utils.share
+import com.sarftec.cristianoronaldo.view.viewmodel.MainViewModel
 import com.sarftec.cristianoronaldo.view.viewmodel.WallpapersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,6 +40,8 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
             layoutInflater
         )
     }
+
+    private val viewModel by viewModels<MainViewModel>()
 
     private lateinit var readWriteHandler: ReadWriteHandler
 
@@ -51,6 +58,7 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
         setContentView(layoutBinding.root)
         setupNavigationDrawer()
         setupNavigationView()
+        setupNavigationHeader()
         setupNightMode()
         layoutBinding.bottomNavigation.setupWithNavController(getNavController())
     }
@@ -60,6 +68,20 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
             R.id.nav_container
         ) as NavHostFragment
         return navHost.navController
+    }
+
+    private fun setupNavigationHeader() {
+        layoutBinding.navigationView
+            .getHeaderView(0)
+            .findViewById<ImageView>(R.id.header_image)
+            ?.let { imageView ->
+                lifecycleScope.launchWhenCreated {
+                    viewModel.getHeaderImage().let {
+                        if(it.isSuccess()) imageView.setImageBitmap(it.data!!)
+                        if(it.isError()) Log.v("TAG", "Header Image Error => ${it.message}")
+                    }
+                }
+            }
     }
 
     private fun setupNightMode() {
@@ -72,10 +94,6 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
         }
     }
 
-    fun setupCacheMode() {
-
-    }
-
     private fun setDrawerCallback(callback: () -> Unit) {
         drawerCallback = callback
         layoutBinding.navigationDrawer.closeDrawer(GravityCompat.START)
@@ -84,12 +102,6 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
     private fun setupNavigationView() {
         layoutBinding.navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.upload_wallpaper -> {
-                    setDrawerCallback {
-                        navigateTo(UploadActivity::class.java)
-                    }
-                    true
-                }
                 R.id.share_app -> {
                     setDrawerCallback {
                         share(
@@ -99,13 +111,6 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
                     }
                     true
                 }
-                R.id.approve_wallpapers -> {
-                    setDrawerCallback {
-                        navigateTo(ApproveActivity::class.java)
-                    }
-                    true
-                }
-
                 R.id.rate_app -> {
                     setDrawerCallback {
                         rateApp()
