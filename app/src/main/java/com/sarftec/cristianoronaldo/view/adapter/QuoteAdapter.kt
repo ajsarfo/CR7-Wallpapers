@@ -1,6 +1,6 @@
 package com.sarftec.cristianoronaldo.view.adapter
 
-import android.graphics.Bitmap
+import android.net.Uri
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sarftec.cristianoronaldo.utils.Resource
@@ -17,7 +17,7 @@ class QuoteAdapter(
 
     private var items = listOf<QuoteUI>()
 
-    private val taskManager = TaskManager<QuoteUI.Quote, Resource<Bitmap>>()
+    private val taskManager = TaskManager<QuoteUI.Quote, Resource<Uri>>()
 
     private val dependency = QuoteItemViewHolder.ViewHolderDependency(
         coroutineScope,

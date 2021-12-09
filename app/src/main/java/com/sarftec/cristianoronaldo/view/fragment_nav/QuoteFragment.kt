@@ -15,6 +15,8 @@ import com.sarftec.cristianoronaldo.view.adapter.QuoteAdapter
 import com.sarftec.cristianoronaldo.view.dialog.WallpaperSetDialog
 import com.sarftec.cristianoronaldo.view.handler.ToolingHandler
 import com.sarftec.cristianoronaldo.view.listener.QuoteFragmentListener
+import com.sarftec.cristianoronaldo.view.utils.downloadGlideImage
+import com.sarftec.cristianoronaldo.view.utils.toast
 import com.sarftec.cristianoronaldo.view.viewmodel.QuoteViewModel
 import com.sarftec.cristianoronaldo.view.viewpager.ZoomOutPageTransformer
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,11 +55,31 @@ class QuoteFragment : Fragment() {
         )
     }
 
+    private var showNetworkToast = false
+
     private fun runCurrentBitmapCallback(callback: (Bitmap) -> Unit) {
+        listener.showLoadingDialog(true)
         viewModel.getAtPosition(layoutBinding.viewPager.currentItem)?.let { image ->
             lifecycleScope.launch {
                 viewModel.getImage(image).let {
-                    if (it.isSuccess()) callback(it.data!!)
+                    if (it.isSuccess()) requireActivity().downloadGlideImage(it.data!!)
+                        .let { result ->
+                            if (result.isSuccess()) {
+                                listener.getRewardVideo().showRewardVideo {
+                                    listener.showLoadingDialog(false)
+                                    callback(result.data!!)
+                                }
+                            }
+                            else {
+                                requireContext().toast("Action Failed!")
+                                listener.showLoadingDialog(false)
+                            }
+                        }
+                    else {
+                        requireContext().toast("Action Failed!")
+                        listener.showLoadingDialog(false)
+                    }
+                    //  if (it.isSuccess()) callback(it.data!!)
                 }
             }
         }

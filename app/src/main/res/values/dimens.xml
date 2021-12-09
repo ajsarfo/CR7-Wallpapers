@@ -20,4 +20,6 @@
 
     <dimen name="dialog_set_wallpaper_item_size">32dp</dimen>
     <dimen name="dialog_set_wallpaper_item_gap">16dp</dimen>
+
+    <dimen name="splash_image_size">200dp</dimen>
 </resources>

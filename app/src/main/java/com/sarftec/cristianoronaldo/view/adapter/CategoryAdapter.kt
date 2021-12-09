@@ -1,6 +1,6 @@
 package com.sarftec.cristianoronaldo.view.adapter
 
-import android.graphics.Bitmap
+import android.net.Uri
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sarftec.cristianoronaldo.utils.Resource
@@ -18,7 +18,7 @@ class CategoryAdapter(
 
     private var items: List<CategoryUI> = listOf()
 
-    private val taskManager = TaskManager<CategoryUI.Category, Resource<Bitmap>>()
+    private val taskManager = TaskManager<CategoryUI.Category, Resource<Uri>>()
 
     private val dependency = CategoryItemViewHolder.ViewHolderDependency(
         coroutineScope,

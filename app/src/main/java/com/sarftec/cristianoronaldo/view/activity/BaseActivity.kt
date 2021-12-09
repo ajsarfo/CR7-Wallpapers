@@ -11,9 +11,43 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.ads.AdRequest
 import com.sarftec.cristianoronaldo.R
+import com.sarftec.cristianoronaldo.view.advertisement.AdCountManager
+import com.sarftec.cristianoronaldo.view.advertisement.InterstitialManager
+import com.sarftec.cristianoronaldo.view.manager.NetworkManager
+import javax.inject.Inject
 
 abstract class BaseActivity : AppCompatActivity() {
+
+    protected val adRequestBuilder: AdRequest by lazy {
+        AdRequest.Builder().build()
+    }
+
+    protected var interstitialManager: InterstitialManager? = null
+
+    @Inject
+    lateinit var networkManager: NetworkManager
+
+    protected open fun canShowInterstitial() : Boolean = true
+
+    protected open fun createAdCounterManager() : AdCountManager {
+        return AdCountManager(listOf(1, 4, 3))
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //Load interstitial if required by extending activity
+        if(!canShowInterstitial()) return
+        interstitialManager = InterstitialManager(
+            this,
+            getString(R.string.admob_interstitial_id),
+            networkManager,
+            createAdCounterManager(),
+            adRequestBuilder
+        )
+        interstitialManager?.load()
+    }
 
     protected fun <T> navigateTo(
         klass: Class<T>,

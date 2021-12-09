@@ -28,4 +28,30 @@
     <string name="upload_wallpapers_here">Upload Wallpapers Here!</string>
     <string name="wallpaper_category">Wallpaper Category</string>
     <string name="wallpaper_section">Wallpaper Section</string>
+
+    <string name="admob_test_banner_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="admob_test_interstitial_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="admob_test_reward_video_id">ca-app-pub-3940256099942544/5224354917</string>
+
+
+    <string name="admob_banner_main">@string/admob_test_banner_id</string>
+    <string name="admob_banner_wallpaper_detail">@string/admob_test_banner_id</string>
+    <string name="admob_banner_category_detail">@string/admob_test_banner_id</string>
+
+    <string name="admob_interstitial_id">@string/admob_test_interstitial_id</string>
+    <string name="category_admob_reward_video_id">@string/admob_test_reward_video_id</string>
+    <string name="quote_admob_reward_video_id">@string/admob_test_reward_video_id</string>
+    <string name="wallpaper_admob_reward_video_id">@string/admob_test_reward_video_id</string>
+
+
+   <!--
+    <string name="admob_banner_main">ca-app-pub-6150813452529727/9500088135</string>
+    <string name="admob_banner_wallpaper_detail">ca-app-pub-6150813452529727/8810479532</string>
+    <string name="admob_banner_category_detail">ca-app-pub-6150813452529727/5916066343</string>
+
+    <string name="admob_interstitial_id">ca-app-pub-6150813452529727/1621598119</string>
+    <string name="quote_admob_reward_video_id">ca-app-pub-6150813452529727/3705917547</string>
+    <string name="category_admob_reward_video_id">ca-app-pub-6150813452529727/8618907840</string>
+    <string name="wallpaper_admob_reward_video_id">ca-app-pub-6150813452529727/7972659132</string>
+   -->
 </resources>

@@ -27,4 +27,6 @@
     <color name="color_nav_drawer_icon_tint">#303030</color>
 
     <color name="color_delete_button">#FF4A45</color>
+
+    <color name="color_splash_background">#212121</color>
 </resources>

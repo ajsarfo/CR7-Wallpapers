@@ -1,10 +1,17 @@
 package com.sarftec.cristianoronaldo.view.adapter.viewholder.wallpaper
 
-import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.sarftec.cristianoronaldo.databinding.LayoutWallpaperItemBinding
 import com.sarftec.cristianoronaldo.utils.Resource
 import com.sarftec.cristianoronaldo.view.model.WallpaperUI
@@ -23,17 +30,51 @@ abstract class BaseWallpaperItemViewHolder(
 
     abstract fun showBottomLayout() : Boolean
 
-    private fun setLayout(resource: Resource<Bitmap>) {
+    private fun setLayout(resource: Resource<Uri>) {
+        layoutBinding.contentLayout.visibility = View.VISIBLE
         if (resource.isSuccess()) {
-            layoutBinding.image.setImageBitmap(resource.data)
-            layoutBinding.apply {
-                shimmerLayout.stopShimmer()
-                shimmerLayout.visibility = View.GONE
+            if (resource.isSuccess()) {
+                Glide.with(itemView)
+                    .load(resource.data!!)
+                    .addListener(
+                        object : RequestListener<Drawable> {
+                            override fun onLoadFailed(
+                                e: GlideException?,
+                                model: Any?,
+                                target: Target<Drawable>?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                Log.v("TAG", "Error => Glide load failed!")
+                                dependency.taskManager.removeTask(id)
+                                return false
+                            }
+
+                            override fun onResourceReady(
+                                resource: Drawable?,
+                                model: Any?,
+                                target: Target<Drawable>?,
+                                dataSource: DataSource?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                Log.v("TAG", "Success => Glide load completed!")
+                                dependency.taskManager.removeTask(id)
+                                layoutBinding.apply {
+                                    shimmerLayout.stopShimmer()
+                                    shimmerLayout.visibility = View.GONE
+                                }
+                                layoutBinding.contentLayout.visibility = View.VISIBLE
+                                return false
+                            }
+                        }
+                    )
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(layoutBinding.image)
             }
-            layoutBinding.contentLayout.visibility = View.VISIBLE
         }
-        if (resource.isError()) Log.v("TAG", "${resource.message}")
-        dependency.taskManager.removeTask(id)
+        if (resource.isError()) {
+            dependency.taskManager.removeTask(id)
+            Log.v("TAG", "${resource.message}")
+        }
     }
 
     private fun clearLayout(wallpaperUI: WallpaperUI.Wallpaper) {
@@ -54,7 +95,7 @@ abstract class BaseWallpaperItemViewHolder(
         if (wallpaperUI !is WallpaperUI.Wallpaper) return
         if(!showBottomLayout()) layoutBinding.bottomLayout.visibility = View.GONE
         clearLayout(wallpaperUI)
-        val task = Task.createTask<WallpaperUI.Wallpaper, Resource<Bitmap>>(
+        val task = Task.createTask<WallpaperUI.Wallpaper, Resource<Uri>>(
             dependency.coroutineScope,
             wallpaperUI
         )
@@ -81,7 +122,7 @@ abstract class BaseWallpaperItemViewHolder(
     class ViewHolderDependency(
         val viewModel: WallpapersViewModel,
         val coroutineScope: CoroutineScope,
-        val taskManager: TaskManager<WallpaperUI.Wallpaper, Resource<Bitmap>>,
+        val taskManager: TaskManager<WallpaperUI.Wallpaper, Resource<Uri>>,
         val onClick: (WallpaperUI.Wallpaper) -> Unit
     )
 }

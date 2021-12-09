@@ -1,6 +1,6 @@
 package com.sarftec.cristianoronaldo.domain.repository
 
-import android.graphics.Bitmap
+import android.net.Uri
 import com.sarftec.cristianoronaldo.domain.model.ImageInfo
 import com.sarftec.cristianoronaldo.utils.Resource
 import java.io.File
@@ -11,8 +11,6 @@ interface ImageRepository {
     /*
     * Note => GetImage and deleteImage is irrespective of folder name
      */
-    suspend fun getImage(imageName: String): Resource<Bitmap>
+    suspend fun getImageUri(imageName: String): Resource<Uri>
     suspend fun deleteImage(imageName: String) : Resource<Unit>
-
-
 }

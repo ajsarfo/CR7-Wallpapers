@@ -1,6 +1,6 @@
 package com.sarftec.cristianoronaldo.data.room.entity
 
-import android.graphics.Bitmap
+import android.net.Uri
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.sarftec.cristianoronaldo.data.ROOM_IMAGE_TABLE
@@ -9,5 +9,5 @@ import com.sarftec.cristianoronaldo.data.ROOM_IMAGE_TABLE
 class RoomImage(
     @PrimaryKey(autoGenerate = false)
     val id: String,
-    val image: Bitmap
+    val uri: Uri
 )

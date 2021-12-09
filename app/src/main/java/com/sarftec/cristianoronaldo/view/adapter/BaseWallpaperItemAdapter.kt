@@ -1,6 +1,6 @@
 package com.sarftec.cristianoronaldo.view.adapter
 
-import android.graphics.Bitmap
+import android.net.Uri
 import androidx.paging.PagingDataAdapter
 import com.sarftec.cristianoronaldo.utils.Resource
 import com.sarftec.cristianoronaldo.view.adapter.diffutil.WallpaperItemDiffUtil
@@ -17,7 +17,7 @@ abstract class BaseWallpaperItemAdapter(
     onClick: (WallpaperUI.Wallpaper) -> Unit
 ) : PagingDataAdapter<WallpaperUI, BaseViewHolder>(WallpaperItemDiffUtil) {
 
-    private val taskManager = TaskManager<WallpaperUI.Wallpaper, Resource<Bitmap>>()
+    private val taskManager = TaskManager<WallpaperUI.Wallpaper, Resource<Uri>>()
 
     protected val dependency = BaseWallpaperItemViewHolder.ViewHolderDependency(
         viewModel,

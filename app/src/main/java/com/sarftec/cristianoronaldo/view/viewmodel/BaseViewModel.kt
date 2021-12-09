@@ -1,6 +1,6 @@
 package com.sarftec.cristianoronaldo.view.viewmodel
 
-import android.graphics.Bitmap
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.sarftec.cristianoronaldo.domain.usecase.image.GetImage
 import com.sarftec.cristianoronaldo.utils.Resource
@@ -20,11 +20,11 @@ abstract class BaseViewModel <T> (
         return cacheImageMap[position]
     }
 
-    suspend fun getImage(wallpaperUI: WallpaperUI.Wallpaper): Resource<Bitmap> {
+    suspend fun getImage(wallpaperUI: WallpaperUI.Wallpaper): Resource<Uri> {
         return getImage(wallpaperUI.wallpaper.imageLocation)
     }
 
-    suspend fun getImage(imageLocation: String): Resource<Bitmap> {
+    suspend fun getImage(imageLocation: String): Resource<Uri> {
         return getImage.execute(
             GetImage.GetImageParam(imageLocation)
         ).image

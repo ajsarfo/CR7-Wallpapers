@@ -12,14 +12,21 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import com.sarftec.cristianoronaldo.R
 import com.sarftec.cristianoronaldo.databinding.ActivityMainBinding
+import com.sarftec.cristianoronaldo.view.advertisement.AdCountManager
+import com.sarftec.cristianoronaldo.view.advertisement.BannerManager
+import com.sarftec.cristianoronaldo.view.advertisement.InterstitialManager
+import com.sarftec.cristianoronaldo.view.advertisement.RewardVideoManager
+import com.sarftec.cristianoronaldo.view.dialog.LoadingDialog
 import com.sarftec.cristianoronaldo.view.handler.NightModeHandler
 import com.sarftec.cristianoronaldo.view.handler.ReadWriteHandler
 import com.sarftec.cristianoronaldo.view.listener.CategoryFragmentListener
 import com.sarftec.cristianoronaldo.view.listener.DrawerFragmentListener
 import com.sarftec.cristianoronaldo.view.listener.QuoteFragmentListener
 import com.sarftec.cristianoronaldo.view.listener.WallpaperFragmentListener
+import com.sarftec.cristianoronaldo.view.manager.AppReviewManager
 import com.sarftec.cristianoronaldo.view.model.CategoryUI
 import com.sarftec.cristianoronaldo.view.model.WallpaperUI
 import com.sarftec.cristianoronaldo.view.parcel.CategoryToDetail
@@ -51,8 +58,35 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
         NightModeHandler(this)
     }
 
+    private val loadingDialog by lazy {
+        LoadingDialog(this, layoutBinding.root)
+    }
+
+    private val rewardVideoManager by lazy {
+        RewardVideoManager(
+            this,
+            R.string.quote_admob_reward_video_id,
+            adRequestBuilder,
+            networkManager
+        )
+    }
+
+    private val appReviewManager by lazy {
+        AppReviewManager(this)
+    }
+
+    override fun createAdCounterManager(): AdCountManager {
+        return AdCountManager(listOf(1, 3, 4, 2, 3))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        /*************** Admob Configuration ********************/
+        BannerManager(this, adRequestBuilder).attachBannerAd(
+            getString(R.string.admob_banner_main),
+            layoutBinding.mainBanner
+        )
+        /**********************************************************/
         readWriteHandler = ReadWriteHandler(this)
         setStatusBarBackgroundLight()
         setContentView(layoutBinding.root)
@@ -61,6 +95,9 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
         setupNavigationHeader()
         setupNightMode()
         layoutBinding.bottomNavigation.setupWithNavController(getNavController())
+        lifecycleScope.launchWhenCreated {
+            appReviewManager.init().triggerReview()
+        }
     }
 
     private fun getNavController(): NavController {
@@ -77,19 +114,25 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
             ?.let { imageView ->
                 lifecycleScope.launchWhenCreated {
                     viewModel.getHeaderImage().let {
-                        if(it.isSuccess()) imageView.setImageBitmap(it.data!!)
-                        if(it.isError()) Log.v("TAG", "Header Image Error => ${it.message}")
+                        if (it.isSuccess()) {
+                            Glide.with(this@MainActivity)
+                                .load(it.data)
+                                .into(imageView)
+                        }
+                        if (it.isError()) Log.v("TAG", "Header Image Error => ${it.message}")
                     }
                 }
             }
     }
 
+
     private fun setupNightMode() {
-        val switch = layoutBinding.navigationView.menu.findItem(R.id.night_mode).actionView as SwitchCompat
+        val switch =
+            layoutBinding.navigationView.menu.findItem(R.id.night_mode).actionView as SwitchCompat
         switch.isChecked = (nightModeHandler.getMode() == NightModeHandler.Mode.NIGHT)
-        switch.setOnCheckedChangeListener { button, isChecked ->
+        switch.setOnCheckedChangeListener { _, isChecked ->
             nightModeHandler.changeMode(
-                if(isChecked) NightModeHandler.Mode.NIGHT else NightModeHandler.Mode.DAY
+                if (isChecked) NightModeHandler.Mode.NIGHT else NightModeHandler.Mode.DAY
             )
         }
     }
@@ -154,13 +197,15 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
         wallpaperUI: WallpaperUI.Wallpaper,
         selection: WallpapersViewModel.Selection
     ) {
-        navigateToWithParcel(
-            DetailWallpaperActivity::class.java,
-            parcel = WallpaperToDetail(
-                wallpaperUI.wallpaper.id,
-                getParcelSelection(selection)
-            )
-        )
+       interstitialManager?.showAd {
+           navigateToWithParcel(
+               DetailWallpaperActivity::class.java,
+               parcel = WallpaperToDetail(
+                   wallpaperUI.wallpaper.id,
+                   getParcelSelection(selection)
+               )
+           )
+       }
     }
 
     override fun navigateToDetailCategory(categoryUI: CategoryUI.Category) {
@@ -186,5 +231,18 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
 
     override fun getReadWriteHandler(): ReadWriteHandler {
         return readWriteHandler
+    }
+
+    override fun showLoadingDialog(isShown: Boolean) {
+        if(isShown) loadingDialog.show()
+        else loadingDialog.dismiss()
+    }
+
+    override fun getRewardVideo(): RewardVideoManager {
+        return rewardVideoManager
+    }
+
+    override fun getAdInterstitialManager(): InterstitialManager? {
+        return interstitialManager
     }
 }

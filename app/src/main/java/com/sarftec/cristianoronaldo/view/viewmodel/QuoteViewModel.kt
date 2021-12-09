@@ -1,16 +1,13 @@
 package com.sarftec.cristianoronaldo.view.viewmodel
 
-import android.graphics.Bitmap
-import android.util.Log
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sarftec.cristianoronaldo.domain.usecase.image.GetImage
 import com.sarftec.cristianoronaldo.domain.usecase.quotes.GetQuotes
 import com.sarftec.cristianoronaldo.utils.Resource
 import com.sarftec.cristianoronaldo.view.mapper.QuoteUIMapper
-import com.sarftec.cristianoronaldo.view.mapper.WallpaperUIMapper
 import com.sarftec.cristianoronaldo.view.model.QuoteUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +35,7 @@ class QuoteViewModel @Inject constructor(
         }
     }
 
-    suspend fun getImage(quoteUI: QuoteUI.Quote): Resource<Bitmap> {
+    suspend fun getImage(quoteUI: QuoteUI.Quote): Resource<Uri> {
         return getImage.execute(GetImage.GetImageParam(quoteUI.quote.image)).image
     }
 }

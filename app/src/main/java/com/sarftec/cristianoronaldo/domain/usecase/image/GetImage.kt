@@ -1,6 +1,6 @@
 package com.sarftec.cristianoronaldo.domain.usecase.image
 
-import android.graphics.Bitmap
+import android.net.Uri
 import com.sarftec.cristianoronaldo.domain.repository.ImageRepository
 import com.sarftec.cristianoronaldo.domain.usecase.UseCase
 import com.sarftec.cristianoronaldo.utils.Resource
@@ -18,11 +18,11 @@ class GetImage @Inject constructor(
         )
         return withContext(Dispatchers.IO) {
             GetImageResult(
-                imageRepository.getImage(param!!.imageLocation)
+                imageRepository.getImageUri(param!!.imageLocation)
             )
         }
     }
 
     class GetImageParam(val imageLocation: String) : Param
-    class GetImageResult(val image: Resource<Bitmap>) : Response
+    class GetImageResult(val image: Resource<Uri>) : Response
 }

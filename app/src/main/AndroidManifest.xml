@@ -23,13 +23,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CristianoRonaldo"
         android:name=".RonaldoApp">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-6150813452529727~2464563031"/>
+
         <activity
-            android:name=".view.activity.MainActivity"
+            android:name=".view.activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <activity
+            android:name=".view.activity.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 

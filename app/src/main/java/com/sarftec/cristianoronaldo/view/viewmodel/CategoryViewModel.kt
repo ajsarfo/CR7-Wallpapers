@@ -1,6 +1,6 @@
 package com.sarftec.cristianoronaldo.view.viewmodel
 
-import android.graphics.Bitmap
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -40,8 +40,8 @@ class CategoryViewModel @Inject constructor(
         }
     }
 
-    suspend fun getImage(categoryUI: CategoryUI.Category) : Resource<Bitmap> {
-        return imageRepository.getImage(categoryUI.category.imageLocation)
+    suspend fun getImage(categoryUI: CategoryUI.Category) : Resource<Uri> {
+        return imageRepository.getImageUri(categoryUI.category.imageLocation)
     }
 
     private fun populateLiveData(result: List<CR7Category>?) {

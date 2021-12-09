@@ -5,7 +5,6 @@
     android:id="@+id/navigation_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:openDrawer="start"
     tools:context=".view.activity.MainActivity">
 
 
@@ -24,6 +23,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/nav_graph" />
+
+        <LinearLayout
+            android:id="@+id/main_banner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+            tools:background="@color/teal_200"
+            tools:layout_editor_absoluteY="735dp"
+            tools:layout_height="50dp"
+            tools:visibility="visible" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"

@@ -1,6 +1,6 @@
 package com.sarftec.cristianoronaldo.view.viewmodel
 
-import android.graphics.Bitmap
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.sarftec.cristianoronaldo.domain.usecase.header.GetHeader
 import com.sarftec.cristianoronaldo.utils.Resource
@@ -12,7 +12,7 @@ class MainViewModel @Inject constructor(
     private val getHeader: GetHeader
 ) : ViewModel() {
 
-    suspend fun getHeaderImage() : Resource<Bitmap> {
+    suspend fun getHeaderImage() : Resource<Uri> {
         return getHeader.execute(GetHeader.HeaderParam).result
     }
 }
