@@ -129,7 +129,7 @@ class QuoteFragment : Fragment() {
             runCurrentBitmapCallback { toolingHandler.saveImage(it) }
         }
         layoutBinding.wallpaper.setOnClickListener {
-            wallpaperDialog.show()
+            runCurrentBitmapCallback { wallpaperDialog.show() }
         }
     }
 

@@ -153,7 +153,7 @@ abstract class DetailBaseActivity<T : Parcelable> : BaseActivity() {
             runCurrentBitmapCallback { toolingHandler.saveImage(it) }
         }
         layoutBinding.wallpaper.setOnClickListener {
-            wallpaperDialog.show()
+            runCurrentBitmapCallback { wallpaperDialog.show() }
         }
         layoutBinding.favorite.setOnClickListener {
             viewModel.getAtPosition(layoutBinding.viewPager.currentItem)?.let {
