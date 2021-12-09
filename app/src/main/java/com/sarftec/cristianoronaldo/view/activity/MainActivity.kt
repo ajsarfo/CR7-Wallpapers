@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide
 import com.sarftec.cristianoronaldo.R
 import com.sarftec.cristianoronaldo.databinding.ActivityMainBinding
 import com.sarftec.cristianoronaldo.view.advertisement.AdCountManager
-import com.sarftec.cristianoronaldo.view.advertisement.BannerManager
 import com.sarftec.cristianoronaldo.view.advertisement.InterstitialManager
 import com.sarftec.cristianoronaldo.view.advertisement.RewardVideoManager
 import com.sarftec.cristianoronaldo.view.dialog.LoadingDialog
@@ -75,18 +74,16 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
         AppReviewManager(this)
     }
 
+    override fun canShowInterstitial(): Boolean {
+        return false
+    }
+
     override fun createAdCounterManager(): AdCountManager {
         return AdCountManager(listOf(1, 3, 4, 2, 3))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /*************** Admob Configuration ********************/
-        BannerManager(this, adRequestBuilder).attachBannerAd(
-            getString(R.string.admob_banner_main),
-            layoutBinding.mainBanner
-        )
-        /**********************************************************/
         readWriteHandler = ReadWriteHandler(this)
         setStatusBarBackgroundLight()
         setContentView(layoutBinding.root)
@@ -95,9 +92,6 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
         setupNavigationHeader()
         setupNightMode()
         layoutBinding.bottomNavigation.setupWithNavController(getNavController())
-        lifecycleScope.launchWhenCreated {
-            appReviewManager.init().triggerReview()
-        }
     }
 
     private fun getNavController(): NavController {
@@ -145,6 +139,12 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
     private fun setupNavigationView() {
         layoutBinding.navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
+                R.id.upload -> {
+                    setDrawerCallback {
+                        navigateTo(UploadActivity::class.java)
+                    }
+                    true
+                }
                 R.id.share_app -> {
                     setDrawerCallback {
                         share(
@@ -197,7 +197,6 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
         wallpaperUI: WallpaperUI.Wallpaper,
         selection: WallpapersViewModel.Selection
     ) {
-       interstitialManager?.showAd {
            navigateToWithParcel(
                DetailWallpaperActivity::class.java,
                parcel = WallpaperToDetail(
@@ -205,7 +204,6 @@ class MainActivity : BaseActivity(), WallpaperFragmentListener, CategoryFragment
                    getParcelSelection(selection)
                )
            )
-       }
     }
 
     override fun navigateToDetailCategory(categoryUI: CategoryUI.Category) {

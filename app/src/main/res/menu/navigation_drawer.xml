@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/upload"
+        android:title="@string/upload_image"
+        android:icon="@drawable/ic_upload" />
+
+    <item
         android:id="@+id/night_mode"
         android:title="@string/night_mode"
         app:actionViewClass="androidx.appcompat.widget.SwitchCompat" />

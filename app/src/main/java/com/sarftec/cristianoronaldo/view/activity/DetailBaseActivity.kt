@@ -12,7 +12,6 @@ import com.sarftec.cristianoronaldo.R
 import com.sarftec.cristianoronaldo.databinding.ActivityDetailBinding
 import com.sarftec.cristianoronaldo.view.adapter.WallpaperDetailAdapter
 import com.sarftec.cristianoronaldo.view.advertisement.AdCountManager
-import com.sarftec.cristianoronaldo.view.advertisement.BannerManager
 import com.sarftec.cristianoronaldo.view.advertisement.RewardVideoManager
 import com.sarftec.cristianoronaldo.view.dialog.LoadingDialog
 import com.sarftec.cristianoronaldo.view.dialog.WallpaperSetDialog
@@ -74,6 +73,10 @@ abstract class DetailBaseActivity<T : Parcelable> : BaseActivity() {
         )
     }
 
+    override fun canShowInterstitial(): Boolean {
+        return false
+    }
+
     override fun createAdCounterManager(): AdCountManager {
         return AdCountManager(listOf(3, 5, 8, 12))
     }
@@ -84,12 +87,6 @@ abstract class DetailBaseActivity<T : Parcelable> : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /*************** Admob Configuration ********************/
-        BannerManager(this, adRequestBuilder).attachBannerAd(
-            getString(bannerId()),
-            layoutBinding.mainBanner
-        )
-        /**********************************************************/
         setStatusBarBackgroundLight()
         setContentView(layoutBinding.root)
         readWriteHandler = ReadWriteHandler(this)
@@ -118,26 +115,18 @@ abstract class DetailBaseActivity<T : Parcelable> : BaseActivity() {
     }
 
     private fun runCurrentBitmapCallback(callback: (Bitmap) -> Unit) {
-        loadingDialog.show()
         viewModel.getAtPosition(layoutBinding.viewPager.currentItem)?.let { image ->
             lifecycleScope.launch {
+                loadingDialog.show()
                 viewModel.getImage(image).let {
-                    if(it.isSuccess()) this@DetailBaseActivity.downloadGlideImage(it.data!!).let { result ->
-                        if(result.isSuccess()) {
-                            rewardVideoManager.showRewardVideo {
-                                loadingDialog.dismiss()
-                                callback(result.data!!)
-                            }
-                        }
-                        else {
+                    if (it.isSuccess()) this@DetailBaseActivity.downloadGlideImage(it.data!!)
+                        .let { result ->
                             loadingDialog.dismiss()
-                            toast("Action Failed!")
+                            if (result.isSuccess()) callback(result.data!!)
+                            else toast("Action Failed!")
                         }
-                    }
-                    else {
-                        loadingDialog.dismiss()
-                        toast("Action Failed!")
-                    }
+                    else toast("Action Failed!")
+                    loadingDialog.dismiss()
                     //  if (it.isSuccess()) callback(it.data!!)
                 }
             }
@@ -173,10 +162,8 @@ abstract class DetailBaseActivity<T : Parcelable> : BaseActivity() {
         layoutBinding.viewPager.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
-                    interstitialManager?.showAd {
-                        viewModel.getAtPosition(position)?.let {
-                            setFavorite(it.wallpaper.isFavorite)
-                        }
+                    viewModel.getAtPosition(position)?.let {
+                        setFavorite(it.wallpaper.isFavorite)
                     }
                     super.onPageSelected(position)
                 }

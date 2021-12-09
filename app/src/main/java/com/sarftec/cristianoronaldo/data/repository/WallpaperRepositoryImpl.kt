@@ -84,7 +84,7 @@ class WallpaperRepositoryImpl @Inject constructor(
                 )
             )
             recentWallpaperRepository.createWallpaper(wallpaper).also {
-                //categoryRepository.addWallpaperToCategory(wallpaper)
+                categoryRepository.addWallpaperToCategory(wallpaper)
             }
         }
     }
