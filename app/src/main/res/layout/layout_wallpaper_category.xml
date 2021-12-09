@@ -24,6 +24,7 @@
         <FrameLayout
             android:id="@+id/content_layout"
             android:visibility="gone"
+            tools:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -49,9 +50,9 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Juventus"
+                    tools:text="Juventus"
                     android:textStyle="bold"
-                    android:textSize="24sp"
+                    android:textSize="22sp"
                     android:shadowColor="@color/black"
                     android:shadowDx="16"
                     android:shadowDy="16"
@@ -61,9 +62,9 @@
                     android:id="@+id/total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="102 Images"
+                    tools:text="102 Images"
                     android:textStyle="bold"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:shadowDx="16"
                     android:shadowDy="16"
                     android:textColor="@color/color_wallpaper_item_bottom_icons" />
@@ -74,6 +75,7 @@
                 android:id="@+id/shimmer_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                tools:visibility="gone"
                 app:shimmer_auto_start="true">
 
                 <View

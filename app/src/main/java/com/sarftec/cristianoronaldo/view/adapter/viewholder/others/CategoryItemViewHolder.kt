@@ -31,6 +31,7 @@ private val dependency: ViewHolderDependency
     private val id = UUID.randomUUID().toString()
 
     private fun setLayout(resource: Resource<Uri>) {
+        layoutBinding.contentLayout.visibility  = View.VISIBLE
         if (resource.isSuccess()) {
             if (resource.isSuccess()) {
                 Glide.with(itemView)
@@ -61,7 +62,7 @@ private val dependency: ViewHolderDependency
                                     shimmerLayout.stopShimmer()
                                     shimmerLayout.visibility = View.GONE
                                 }
-                                layoutBinding.contentLayout.visibility = View.VISIBLE
+                               layoutBinding.contentLayout.visibility  = View.VISIBLE
                                 return false
                             }
                         }
